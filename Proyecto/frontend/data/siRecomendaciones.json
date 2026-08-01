@@ -1,0 +1,17 @@
+{
+  "alimentacion": [
+    "Reducir azúcares refinados.",
+    "Consumir vegetales frescos diariamente.",
+    "Priorizar proteínas magras y fibra."
+  ],
+  "ejercicio": [
+    "Caminata de 20 minutos al día.",
+    "Ejercicio de bajo impacto 3 veces por semana.",
+    "Realizar estiramientos diarios."
+  ],
+  "descanso": [
+    "Dormir entre 7 y 8 horas por noche.",
+    "Evitar pantallas antes de dormir.",
+    "Mantener una rutina constante de sueño."
+  ]
+}
