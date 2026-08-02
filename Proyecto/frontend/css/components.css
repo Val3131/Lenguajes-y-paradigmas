@@ -1,0 +1,50 @@
+/* Tarjeta base para recomendaciones y historial */
+.tarjeta-info {
+  background-color: #ffffff;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-borde);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.tarjeta-info:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+}
+
+/* Encabezado de cada tarjeta */
+.tarjeta-info .titulo-tarjeta {
+  color: var(--color-primario);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* Badge para condiciones médicas */
+.badge-condicion {
+  background-color: var(--color-secundario);
+  color: #ffffff;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  margin-right: 6px;
+}
+
+/* Badge de estado */
+.badge-exito {
+  background-color: var(--color-exito);
+  color: #ffffff;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+
+/* Contenedor de formularios */
+.contenedor-formulario {
+  background-color: #ffffff;
+  border-radius: var(--radio-borde);
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  max-width: 700px;
+  margin: 40px auto;
+}

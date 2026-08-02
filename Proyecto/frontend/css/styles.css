@@ -1,0 +1,100 @@
+:root {
+  --color-primario: #2C5F6F;
+  --color-secundario: #E8875A;
+  --color-fondo: #F7F5F2;
+  --color-texto: #2B2B2B;
+  --color-exito: #6B9B7C;
+  --color-borde: #D9D4CC;
+
+  --fuente-principal: 'Segoe UI', Arial, sans-serif;
+  --radio-borde: 10px;
+}
+
+/* Reset básico */
+body {
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: var(--fuente-principal);
+}
+
+/*Barra de navegacion*/
+.navbar-personalizada{
+    background-color: var(--color-primario) !important;
+    min-height: 76px;
+    padding: 8px 0;
+}
+
+.logo-navbar{
+    height: 120px;
+    width: 120px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px;
+}
+
+.navbar-personalizada .navbar-brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-size:1.45rem;
+    font-weight:700;
+}
+
+.navbar-personalizada .nav-link {
+  color: #fff !important;
+  font-size: 1.15rem;      
+  font-weight: 500;       
+  padding: 0.55rem 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.navbar-personalizada .nav-link:hover {
+  color: #E8875A !important;
+  transform: translateY(-1px);
+}
+
+.navbar-personalizada .nav-link.active {
+  font-weight: 700;
+}
+
+/* Botones propios */
+.btn-principal {
+  background-color: var(--color-primario);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radio-borde);
+  padding: 10px 24px;
+}
+
+.btn-principal:hover {
+  background-color: #234a56;
+  color: #ffffff;
+}
+
+.btn-secundario {
+  background-color: var(--color-secundario);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radio-borde);
+  padding: 10px 24px;
+}
+
+.btn-secundario:hover {
+  background-color: #d1723f;
+  color: #ffffff;
+}
+
+/* Títulos */
+h1, h2, h3 {
+  color: var(--color-primario);
+  font-weight: 700;
+}
+
+/* Enlaces */
+a {
+  color: var(--color-primario);
+}
+
+a:hover {
+  color: var(--color-secundario);
+}

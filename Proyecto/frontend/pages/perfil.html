@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil de Salud</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/styles.css" rel="stylesheet">
+  <link href="../css/components.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-personalizada shadow-sm">
+  <div class="container">
+
+    <a class="navbar-brand fw-bold text-white d-flex align-items-center" href="../index.html">
+      <img src="../assets/img/salud.png"
+           alt="Logo Salud y Bienestar"
+           class="logo-navbar">
+      <span class="ms-2">Salud &amp; Bienestar</span>
+    </a>
+
+    <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#menuPrincipal">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="menuPrincipal">
+      <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item">
+          <a class="nav-link active" href="perfil.html">Perfil</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="recomendaciones.html">Recomendaciones</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="progreso.html">Progreso</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="historial.html">Historial</a>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+  <main class="container py-5">
+    <section class="contenedor-formulario">
+      <h1 class="text-center mb-4">Formulario del perfil de salud</h1>
+
+      <form id="formPerfil">
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="nombre" class="form-label">Nombre completo</label>
+            <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre completo">
+            <div class="text-danger small" id="errorNombre"></div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="edad" class="form-label">Edad</label>
+            <input type="number" class="form-control" id="edad" placeholder="Ejemplo: 22">
+            <div class="text-danger small" id="errorEdad"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="peso" class="form-label">Peso (kg)</label>
+            <input type="number" class="form-control" id="peso" placeholder="Ejemplo: 70">
+            <div class="text-danger small" id="errorPeso"></div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="estatura" class="form-label">Estatura (m)</label>
+            <input type="number" step="0.01" class="form-control" id="estatura" placeholder="Ejemplo: 1.75">
+            <div class="text-danger small" id="errorEstatura"></div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Condiciones de salud</label>
+          <p class="texto-ayuda mb-2">Si no presenta ninguna condición de salud, deje esta sección sin seleccionar.</p>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-check">
+                <input class="form-check-input condicion-salud" type="checkbox" value="Diabetes tipo 2" id="diabetes">
+                <label class="form-check-label" for="diabetes">Diabetes tipo 2</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input condicion-salud" type="checkbox" value="Hipertensión" id="hipertension">
+                <label class="form-check-label" for="hipertension">Hipertensión</label>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-check">
+                <input class="form-check-input condicion-salud" type="checkbox" value="Obesidad" id="obesidad">
+                <label class="form-check-label" for="obesidad">Obesidad</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input condicion-salud" type="checkbox" value="Anemia" id="anemia">
+                <label class="form-check-label" for="anemia">Anemia</label>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-check">
+                <input class="form-check-input condicion-salud" type="checkbox" value="Intolerancia a la lactosa" id="lactosa">
+                <label class="form-check-label" for="lactosa">Intolerancia a la lactosa</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input condicion-salud" type="checkbox" value="Celiaquía" id="celiaquia">
+                <label class="form-check-label" for="celiaquia">Celiaquía</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="checkbox" id="otraCondicion">
+            <label class="form-check-label" for="otraCondicion">Otra: especificar</label>
+          </div>
+
+          <div class="mt-2 d-none" id="contenedorOtraCondicion">
+            <input
+              type="text"
+              class="form-control"
+              id="detalleOtraCondicion"
+              placeholder="Ejemplo: artritis"
+              maxlength="60"
+            >
+            <div class="text-danger small" id="errorOtraCondicion"></div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="actividad" class="form-label">Nivel de actividad</label>
+          <select class="form-select" id="actividad">
+            <option value="">Seleccione una opción</option>
+            <option value="Sedentario">Sedentario</option>
+            <option value="Levemente activo">Levemente activo</option>
+            <option value="Moderadamente activo">Moderadamente activo</option>
+            <option value="Muy activo">Muy activo</option>
+          </select>
+          <div class="text-danger small" id="errorActividad"></div>
+        </div>
+
+        <div class="mb-3">
+          <label for="objetivo" class="form-label">Objetivo de bienestar</label>
+          <select class="form-select" id="objetivo">
+            <option value="">Seleccione una opción</option>
+            <option value="Pérdida de peso">Pérdida de peso</option>
+            <option value="Ganancia muscular">Ganancia muscular</option>
+            <option value="Mantenimiento">Mantenimiento</option>
+            <option value="Mejora cardiovascular">Mejora cardiovascular</option>
+            <option value="Reducción del estrés">Reducción del estrés</option>
+          </select>
+          <div class="text-danger small" id="errorObjetivo"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="sueno" class="form-label">Horas de sueño por noche</label>
+            <input type="number" class="form-control" id="sueno" placeholder="Ejemplo: 7">
+            <div class="text-danger small" id="errorSueno"></div>
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="habitoActividad" class="form-label">Actividad física actual</label>
+            <input type="text" class="form-control" id="habitoActividad" placeholder="Ejemplo: Caminata 3 veces por semana">
+            <div class="text-danger small" id="errorHabitoActividad"></div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="comentarios" class="form-label">Hábitos o comentarios adicionales</label>
+          <textarea class="form-control" id="comentarios" rows="4" placeholder="Ejemplo: quiero mejorar mi descanso y alimentación"></textarea>
+        </div>
+
+        <div class="text-center mt-4">
+          <button type="submit" class="btn btn-principal">Guardar perfil</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/utils/validators.js"></script>
+  <script src="../js/pages/perfil.js"></script>
+</body>
+</html>

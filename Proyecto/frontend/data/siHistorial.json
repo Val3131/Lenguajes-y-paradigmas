@@ -1,0 +1,12 @@
+{
+  "semanaAnterior": {
+    "alimentacion": "Reducir azúcares y harinas refinadas.",
+    "ejercicio": "Caminata de 20 minutos diarios.",
+    "descanso": "Dormir 7 horas por noche."
+  },
+  "semanaActual": {
+    "alimentacion": "Aumentar vegetales y proteínas magras.",
+    "ejercicio": "Caminata de 30 minutos diarios.",
+    "descanso": "Mejorar la higiene del sueño y evitar pantallas nocturnas."
+  }
+}
