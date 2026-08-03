@@ -48,3 +48,228 @@
   max-width: 700px;
   margin: 40px auto;
 }
+
+/* Pantalla para inicio de sesión y registro */
+.pantalla-acceso {
+  min-height: calc(100vh - 76px);
+  display: flex;
+  align-items: center;
+  padding: 40px 0;
+}
+
+/* Variante más angosta del contenedor de formularios */
+.contenedor-acceso {
+  max-width: 480px;
+}
+
+/* Logo dentro del formulario */
+.logo-acceso {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* Ajustes de campos */
+.contenedor-acceso .form-control {
+  min-height: 48px;
+  border-radius: var(--radio-borde);
+}
+
+/* Botón de ancho completo */
+.contenedor-acceso .btn-principal {
+  width: 100%;
+}
+
+/* Texto inferior del formulario */
+.enlace-acceso {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+/* Contenedor general de notificaciones */
+.contenedor-notificaciones {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 3000;
+  width: min(380px, calc(100vw - 40px));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Notificación base */
+.notificacion {
+  position: relative;
+  display: grid;
+  grid-template-columns: 42px 1fr 28px;
+  align-items: center;
+  gap: 12px;
+
+  background-color: #ffffff;
+  border: 1px solid var(--color-borde);
+  border-left: 5px solid var(--color-primario);
+  border-radius: var(--radio-borde);
+  padding: 14px 14px 18px;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+
+  opacity: 0;
+  transform: translateX(30px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  overflow: hidden;
+}
+
+/* Animación de entrada */
+.notificacion-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Animación de salida */
+.notificacion-salida {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+/* Icono */
+.notificacion-icono {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* Mensaje */
+.notificacion-mensaje {
+  margin: 0;
+  line-height: 1.35;
+  color: var(--color-texto);
+}
+
+/* Botón cerrar */
+.notificacion-cerrar {
+  border: none;
+  background: transparent;
+  color: #666666;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+}
+
+.notificacion-cerrar:hover {
+  color: var(--color-texto);
+}
+
+/* Barra inferior de duración */
+.notificacion-progreso {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  width: 100%;
+  transform-origin: left;
+  animation-name: reducir-notificacion;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+/* Variantes */
+.notificacion-success {
+  border-left-color: var(--color-exito);
+}
+
+.notificacion-success .notificacion-icono,
+.notificacion-success .notificacion-progreso {
+  background-color: var(--color-exito);
+}
+
+.notificacion-danger {
+  border-left-color: #b94a48;
+}
+
+.notificacion-danger .notificacion-icono,
+.notificacion-danger .notificacion-progreso {
+  background-color: #b94a48;
+}
+
+.notificacion-warning {
+  border-left-color: var(--color-secundario);
+}
+
+.notificacion-warning .notificacion-icono,
+.notificacion-warning .notificacion-progreso {
+  background-color: var(--color-secundario);
+}
+
+.notificacion-info {
+  border-left-color: var(--color-primario);
+}
+
+.notificacion-info .notificacion-icono,
+.notificacion-info .notificacion-progreso {
+  background-color: var(--color-primario);
+}
+
+@keyframes reducir-notificacion {
+  from {
+    transform: scaleX(1);
+  }
+
+  to {
+    transform: scaleX(0);
+  }
+}
+
+/* Adaptación para móviles */
+@media (max-width: 576px) {
+  .contenedor-notificaciones {
+    top: 12px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+  }
+}
+
+/* ===========================
+   Footer
+=========================== */
+
+.footer-personalizado {
+  background-color: #ffffff;
+  color: var(--color-texto);
+  padding: 25px 0;
+}
+
+.footer-personalizado hr {
+  margin-bottom: 25px;
+  border-color: rgba(0,0,0,0.12);
+}
+
+.footer-personalizado small {
+  color: #6c757d;
+}
+
+.footer-personalizado strong {
+  color: var(--color-primario);
+}
+.card-inicio .card-body{
+    padding:2rem 1.5rem;
+}
+
+.card-inicio .card-title{
+    white-space:nowrap;
+    font-size:1rem;
+    font-weight:700;
+}

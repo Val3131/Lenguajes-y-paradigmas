@@ -1,6 +1,13 @@
 document.addEventListener("DOMContentLoaded", async function () {
   try {
-    const datos = await apiService.obtenerRecomendaciones();
+    const usuarioId = localStorage.getItem("usuarioId");
+
+    if (!usuarioId) {
+      alert("Primero debe registrar su perfil.");
+      return;
+    }
+
+    const datos = await apiService.obtenerRecomendaciones(usuarioId);
 
     const listaAlimentacion = document.getElementById("listaAlimentacion");
     const listaEjercicio = document.getElementById("listaEjercicio");

@@ -1,5 +1,13 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
   const formulario = document.getElementById("formProgreso");
+
+  const token = localStorage.getItem("accessToken");
+  const usuarioId = localStorage.getItem("usuarioId");
+
+  if (!token || !usuarioId) {
+    window.location.href = "login.html";
+    return;
+  }
 
   if (!formulario) {
     return;
@@ -7,12 +15,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const resumenPeso = document.getElementById("resumenPeso");
   const resumenSueno = document.getElementById("resumenSueno");
-  const resumenActividad = document.getElementById("resumenActividad");
+  const resumenActividad = document.getElementById(
+    "resumenActividad"
+  );
 
   const canvasPeso = document.getElementById("graficaPeso");
   const canvasSueno = document.getElementById("graficaSueno");
 
-  let historialProgreso = JSON.parse(localStorage.getItem("historialProgreso")) || [];
+  let historialProgreso = [];
   let graficaPeso = null;
   let graficaSueno = null;
 
@@ -22,22 +32,42 @@ document.addEventListener("DOMContentLoaded", function () {
     validators.mostrarError("errorActividadRealizada", "");
   }
 
-  function actualizarResumen(datos) {
-    resumenPeso.textContent = datos.pesoActual + " kg";
-    resumenSueno.textContent = datos.suenoActual + " horas";
-    resumenActividad.textContent = datos.actividadRealizada;
+  function actualizarResumen(progreso) {
+    resumenPeso.textContent =
+      `${progreso.peso_actual} kg`;
+
+    resumenSueno.textContent =
+      `${progreso.sueno_actual} horas`;
+
+    resumenActividad.textContent =
+      progreso.actividad_realizada;
   }
 
   function obtenerEtiquetas() {
-    return historialProgreso.map(function (_, index) {
-      return "Registro " + (index + 1);
+    return historialProgreso.map(function (progreso, index) {
+      if (progreso.fecha) {
+        const fecha = new Date(progreso.fecha);
+
+        return fecha.toLocaleDateString("es-CR", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric"
+        });
+      }
+
+      return `Registro ${index + 1}`;
     });
   }
 
   function renderizarGraficaPeso() {
+    if (!canvasPeso) {
+      return;
+    }
+
     const etiquetas = obtenerEtiquetas();
-    const pesos = historialProgreso.map(function (item) {
-      return item.pesoActual;
+
+    const pesos = historialProgreso.map(function (progreso) {
+      return progreso.peso_actual;
     });
 
     if (graficaPeso) {
@@ -62,6 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             display: true
@@ -77,10 +108,17 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function renderizarGraficaSueno() {
+    if (!canvasSueno) {
+      return;
+    }
+
     const etiquetas = obtenerEtiquetas();
-    const suenos = historialProgreso.map(function (item) {
-      return item.suenoActual;
-    });
+
+    const horasSueno = historialProgreso.map(
+      function (progreso) {
+        return progreso.sueno_actual;
+      }
+    );
 
     if (graficaSueno) {
       graficaSueno.destroy();
@@ -93,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
         datasets: [
           {
             label: "Horas de sueño",
-            data: suenos,
+            data: horasSueno,
             backgroundColor: "rgba(122, 166, 177, 0.7)",
             borderColor: "#7aa6b1",
             borderWidth: 1
@@ -102,6 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             display: true
@@ -126,67 +165,148 @@ document.addEventListener("DOMContentLoaded", function () {
     renderizarGraficaSueno();
   }
 
-  const progresoGuardado = localStorage.getItem("progresoActual");
-  if (progresoGuardado) {
-    const datosGuardados = JSON.parse(progresoGuardado);
-    actualizarResumen(datosGuardados);
+  async function cargarProgresos() {
+    try {
+      historialProgreso =
+        await apiService.obtenerProgresos(usuarioId);
+
+      if (historialProgreso.length === 0) {
+        resumenPeso.textContent = "Sin registro";
+        resumenSueno.textContent = "Sin registro";
+        resumenActividad.textContent = "Sin registro";
+        return;
+      }
+
+      const ultimoProgreso =
+        historialProgreso[historialProgreso.length - 1];
+
+      actualizarResumen(ultimoProgreso);
+      renderizarGraficas();
+
+    } catch (error) {
+      console.error("Error al cargar progresos:", error);
+      alert("No fue posible cargar los progresos.");
+    }
   }
 
-  renderizarGraficas();
+  await cargarProgresos();
 
-  formulario.addEventListener("submit", function (event) {
-    event.preventDefault();
-    limpiarErroresProgreso();
+  formulario.addEventListener(
+    "submit",
+    async function (event) {
+      event.preventDefault();
+      limpiarErroresProgreso();
 
-    const pesoActual = document.getElementById("pesoActual").value;
-    const suenoActual = document.getElementById("suenoActual").value;
-    const actividadRealizada = document.getElementById("actividadRealizada").value;
+      const pesoActual =
+        document.getElementById("pesoActual").value;
 
-    let formularioValido = true;
+      const suenoActual =
+        document.getElementById("suenoActual").value;
 
-    if (validators.esCampoVacio(pesoActual)) {
-      validators.mostrarError("errorPesoActual", "El campo Peso actual es obligatorio.");
-      formularioValido = false;
-    } else if (!validators.esNumeroEnRango(pesoActual, 3, 300)) {
-      validators.mostrarError("errorPesoActual", "El peso debe estar entre 3 y 300.");
-      formularioValido = false;
+      const actividadRealizada =
+        document.getElementById(
+          "actividadRealizada"
+        ).value;
+
+      let formularioValido = true;
+
+      if (validators.esCampoVacio(pesoActual)) {
+        validators.mostrarError(
+          "errorPesoActual",
+          "El campo Peso actual es obligatorio."
+        );
+        formularioValido = false;
+
+      } else if (
+        !validators.esNumeroEnRango(
+          pesoActual,
+          3,
+          300
+        )
+      ) {
+        validators.mostrarError(
+          "errorPesoActual",
+          "El peso debe estar entre 3 y 300."
+        );
+        formularioValido = false;
+      }
+
+      if (validators.esCampoVacio(suenoActual)) {
+        validators.mostrarError(
+          "errorSuenoActual",
+          "El campo Horas de sueño es obligatorio."
+        );
+        formularioValido = false;
+
+      } else if (
+        !validators.esNumeroEnRango(
+          suenoActual,
+          1,
+          24
+        )
+      ) {
+        validators.mostrarError(
+          "errorSuenoActual",
+          "Las horas de sueño deben estar entre 1 y 24."
+        );
+        formularioValido = false;
+      }
+
+      if (
+        validators.esCampoVacio(
+          actividadRealizada
+        )
+      ) {
+        validators.mostrarError(
+          "errorActividadRealizada",
+          "El campo Actividad realizada es obligatorio."
+        );
+        formularioValido = false;
+
+      } else if (
+        actividadRealizada.trim().length < 3 ||
+        actividadRealizada.trim().length > 100
+      ) {
+        validators.mostrarError(
+          "errorActividadRealizada",
+          "Ingrese una actividad válida."
+        );
+        formularioValido = false;
+      }
+
+      if (!formularioValido) {
+        return;
+      }
+
+      const progresoUsuario = {
+        pesoActual: Number(pesoActual),
+        suenoActual: Number(suenoActual),
+        actividadRealizada:
+          actividadRealizada.trim()
+      };
+
+      try {
+        await apiService.crearProgreso(
+          usuarioId,
+          progresoUsuario
+        );
+
+        await cargarProgresos();
+
+        notificaciones.exito("Progreso guardado correctamente.");
+        formulario.reset();
+
+      } catch (error) {
+        console.error(
+          "Error al guardar el progreso:",
+          error
+        );
+
+        alert(
+          error.message ||
+          "No fue posible guardar el progreso."
+        );
+      }
     }
-
-    if (validators.esCampoVacio(suenoActual)) {
-      validators.mostrarError("errorSuenoActual", "El campo Horas de sueño es obligatorio.");
-      formularioValido = false;
-    } else if (!validators.esNumeroEnRango(suenoActual, 1, 24)) {
-      validators.mostrarError("errorSuenoActual", "Las horas de sueño deben estar entre 1 y 24.");
-      formularioValido = false;
-    }
-
-    if (validators.esCampoVacio(actividadRealizada)) {
-      validators.mostrarError("errorActividadRealizada", "El campo Actividad realizada es obligatorio.");
-      formularioValido = false;
-    } else if (actividadRealizada.trim().length < 3 || actividadRealizada.trim().length > 80) {
-      validators.mostrarError("errorActividadRealizada", "Ingrese una actividad válida.");
-      formularioValido = false;
-    }
-
-    if (!formularioValido) {
-      return;
-    }
-
-    const progresoUsuario = {
-      pesoActual: Number(pesoActual),
-      suenoActual: Number(suenoActual),
-      actividadRealizada: actividadRealizada.trim()
-    };
-
-    localStorage.setItem("progresoActual", JSON.stringify(progresoUsuario));
-
-    historialProgreso.push(progresoUsuario);
-    localStorage.setItem("historialProgreso", JSON.stringify(historialProgreso));
-
-    actualizarResumen(progresoUsuario);
-    renderizarGraficas();
-
-    alert("Progreso guardado correctamente.");
-    formulario.reset();
-  });
+  );
 });
