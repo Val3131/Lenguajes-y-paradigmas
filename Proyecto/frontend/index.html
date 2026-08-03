@@ -9,50 +9,223 @@
   <link href="css/styles.css" rel="stylesheet">
   <link href="css/components.css" rel="stylesheet">
 </head>
+
 <body>
 
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-personalizada shadow-sm">
     <div class="container">
+
       <a class="navbar-brand fw-bold text-white d-flex align-items-center" href="index.html">
-        <img src="assets/img/salud.png" alt="Logo Salud y Bienestar" class="logo-navbar">
+        <img src="assets/img/salud.png"
+             alt="Logo Salud y Bienestar"
+             class="logo-navbar">
+
         <span class="ms-2">Salud &amp; Bienestar</span>
       </a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#menuPrincipal">
+
         <span class="navbar-toggler-icon"></span>
+
       </button>
 
       <div class="collapse navbar-collapse" id="menuPrincipal">
+
         <ul class="navbar-nav ms-auto">
+
           <li class="nav-item">
-            <a class="nav-link" href="pages/perfil.html">Perfil</a>
+            <a class="nav-link" href="pages/login.html">
+              Iniciar sesión
+            </a>
           </li>
+
           <li class="nav-item">
-            <a class="nav-link" href="pages/recomendaciones.html">Recomendaciones</a>
+            <a class="nav-link" href="pages/registro.html">
+              Registrarse
+            </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/progreso.html">Progreso</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/historial.html">Historial</a>
-          </li>
+
         </ul>
+
       </div>
+
     </div>
   </nav>
 
-  <main class="container mt-5">
-    <div class="text-center py-5">
-      <h1>Bienvenido a tu Sistema de Salud y Bienestar</h1>
-      <p class="text-muted fs-5 mt-3">
-        Registra tu perfil, recibe recomendaciones personalizadas y da seguimiento a tu progreso semana a semana.
-      </p>
-      <a href="pages/perfil.html" class="btn btn-principal mt-3">
-        Comenzar mi perfil
-      </a>
+  <!-- Contenido principal -->
+  <main class="container">
+
+    <div class="row justify-content-center align-items-center" style="min-height:80vh;">
+
+      <div class="col-lg-10 text-center">
+
+        <img
+          src="assets/img/salud.png"
+          alt="Logo"
+          width="120"
+          class="mb-4"
+        >
+
+        <h1 class="mb-4">
+          Bienvenido al Sistema de Salud y Bienestar
+        </h1>
+
+        <p class="lead text-muted mb-5">
+          Lleva el control de tu salud, registra tu progreso semanal y recibe
+          recomendaciones personalizadas según tu perfil y tus hábitos.
+        </p>
+
+        <div class="d-flex justify-content-center gap-3 flex-wrap mb-5">
+
+          <a
+            href="pages/login.html"
+            class="btn btn-principal btn-lg px-5">
+
+            Iniciar sesión
+
+          </a>
+
+          <a
+            href="pages/registro.html"
+            class="btn btn-outline-secondary btn-lg px-5">
+
+            Crear cuenta
+
+          </a>
+
+        </div>
+
+        <div class="row g-4">
+
+          <div class="col-lg-3 col-md-6">
+
+            <div class="card card-inicio h-100 shadow-sm border-0">
+
+              <div class="card-body">
+
+                <h4 class="card-title">
+                  👤 Perfil
+                </h4>
+
+                <p class="card-text mt-3">
+                  Registra tus datos de salud para personalizar tu experiencia.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+
+            <div class="card card-inicio h-100 shadow-sm border-0">
+
+              <div class="card-body">
+
+                <h4 class="card-title">
+                  📈 Progreso
+                </h4>
+
+                <p class="card-text mt-3">
+                  Lleva un seguimiento semanal de tu peso, sueño y actividad.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+
+            <div class="card card-inicio h-100 shadow-sm border-0">
+
+              <div class="card-body">
+
+                <h4 class="card-title">
+                  💡 Recomendaciones
+                </h4>
+
+                <p class="card-text mt-3">
+                  Recibe recomendaciones personalizadas según tu perfil.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+
+            <div class="card card-inicio h-100 shadow-sm border-0">
+
+              <div class="card-body">
+
+                <h4 class="card-title">
+                  📊 Historial
+                </h4>
+
+                <p class="card-text mt-3">
+                  Consulta tu evolución y analiza tus avances a lo largo del tiempo.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
     </div>
+
   </main>
 
+  <!-- Footer -->
+  <footer class="footer-personalizado mt-5">
+
+    <div class="container">
+
+      <hr>
+
+      <div class="row align-items-center">
+
+        <div class="col-md-6 text-center text-md-start">
+
+          <strong>Sistema de Salud y Bienestar</strong><br>
+
+          <small>
+            Proyecto académico desarrollado para el curso de Lenguajes y Paradigmas.
+          </small>
+
+        </div>
+
+        <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
+
+          <small>
+            © 2026 Todos los derechos reservados.
+          </small>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="js/pages/index.js"></script>
+
 </body>
 </html>
