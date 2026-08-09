@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app import models
+from app import models, prolog_engine
 from app.database import engine
 from app.routers import progresos, recomendaciones, usuarios, historial, auth
 from fastapi.middleware.cors import CORSMiddleware
@@ -27,6 +27,13 @@ app.include_router(recomendaciones.router)
 app.include_router(historial.router)
 
 
+@app.on_event("startup")
+def cargar_motor_prolog():
+    # Carga hechos.pl y reglas.pl una sola vez al arrancar, para que
+    # la primera peticion a /recomendaciones no pague ese costo.
+    prolog_engine.preload()
+
+
 @app.get("/")
 def inicio():
     return {
@@ -39,4 +46,3 @@ def verificar_api():
     return {
         "estado": "ok"
     }
-
