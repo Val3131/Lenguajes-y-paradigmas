@@ -25,6 +25,19 @@ class UsuarioActualizar(BaseModel):
     habitoActividad: str = Field(min_length=3, max_length=80)
     comentarios: str | None = None
 
+# NOTA DE INTEGRACION: esta clase se movio ARRIBA de UsuarioRespuesta.
+# En el archivo original estaba despues, y UsuarioRespuesta la usaba
+# en su anotacion de tipo (list[CondicionRespuesta]) -> eso causaba
+# NameError: name 'CondicionRespuesta' is not defined al importar el
+# modulo, porque Python evalua las anotaciones de clase en el momento
+# en que se define la clase (no hay 'from __future__ import annotations'
+# en este archivo). Con este archivo tal cual, el backend ya arranca.
+class CondicionRespuesta(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    nombre: str
+
 class UsuarioRespuesta(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
@@ -40,12 +53,6 @@ class UsuarioRespuesta(BaseModel):
     comentarios: str | None
     fecha_creacion: datetime
     condiciones: list[CondicionRespuesta] = []
-
-class CondicionRespuesta(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
-    id: int
-    nombre: str
 
 class ProgresoCrear(BaseModel):
     pesoActual: float = Field(ge=3, le=300)
