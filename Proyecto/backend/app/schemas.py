@@ -72,16 +72,20 @@ class RecomendacionRespuesta(BaseModel):
     alimentacion: list[str]
     ejercicio: list[str]
     descanso: list[str]
+    consejo_ia: str
 
 class RecomendacionSemana(BaseModel):
+    fecha: str
     alimentacion: str
     ejercicio: str
     descanso: str
+    consejoIa: str
 
 
 class HistorialRespuesta(BaseModel):
-    semanaAnterior: RecomendacionSemana
-    semanaActual: RecomendacionSemana
+    semanaAnterior: RecomendacionSemana | None = None
+    semanaActual: RecomendacionSemana | None = None
+    mensaje: str | None = None
 
 class RegistroUsuario(BaseModel):
     nombre: str = Field(min_length=3, max_length=60)
