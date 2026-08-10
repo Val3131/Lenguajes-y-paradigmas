@@ -148,6 +148,15 @@ class Progreso(Base):
         default=datetime.now
     )
 
+    # Snapshot (JSON como texto) de la recomendacion vigente en el
+    # momento en que se registro este progreso. Permite que
+    # /historial compare "semana anterior" contra "semana actual"
+    # con datos reales, en vez de textos fijos.
+    recomendacion_snapshot: Mapped[str | None] = mapped_column(
+        Text,
+        nullable=True
+    )
+
     usuario = relationship(
         "Usuario",
         back_populates="progresos"

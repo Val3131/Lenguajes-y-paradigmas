@@ -1,7 +1,9 @@
+import json
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app import models, schemas
+from app import models, schemas, plan_service
 from app.database import obtener_db
 
 
@@ -33,11 +35,23 @@ def crear_progreso(
             detail="Usuario no encontrado"
         )
 
+    # Se guarda un snapshot de la recomendacion vigente junto con el
+    # progreso, para que /historial pueda comparar "semana anterior"
+    # vs "semana actual" con datos reales. Si Prolog/la IA fallan en
+    # este momento, el progreso igual se guarda (solo sin snapshot).
+    snapshot = None
+    try:
+        plan = plan_service.calcular_plan(usuario)
+        snapshot = json.dumps(plan, ensure_ascii=False)
+    except Exception:  # pylint: disable=broad-except
+        snapshot = None
+
     progreso = models.Progreso(
         usuario_id=usuario_id,
         peso_actual=datos.pesoActual,
         sueno_actual=datos.suenoActual,
-        actividad_realizada=datos.actividadRealizada
+        actividad_realizada=datos.actividadRealizada,
+        recomendacion_snapshot=snapshot
     )
 
     db.add(progreso)

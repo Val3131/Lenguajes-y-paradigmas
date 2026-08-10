@@ -12,10 +12,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     const listaAlimentacion = document.getElementById("listaAlimentacion");
     const listaEjercicio = document.getElementById("listaEjercicio");
     const listaDescanso = document.getElementById("listaDescanso");
+    const consejoIa = document.getElementById("consejoIa");
 
     listaAlimentacion.innerHTML = "";
     listaEjercicio.innerHTML = "";
     listaDescanso.innerHTML = "";
+    consejoIa.textContent = datos.consejo_ia || "";
 
     datos.alimentacion.forEach(function(item) {
       listaAlimentacion.innerHTML += `<li>${item}</li>`;
